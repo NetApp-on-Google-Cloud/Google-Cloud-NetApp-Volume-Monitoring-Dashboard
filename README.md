@@ -12,15 +12,17 @@ NetApp Volumes exports a [rich set of metrics](https://cloud.google.com/netapp/v
 This repository offers a baseline dashboard with the most important metric. You can add/remove/change graphs to customize it for your requirements.
 
 Currently it offers the following graphs:
-* *Volume capacity usage*: This chart shows the ratio of used capacity in a volume versus its size. If a volume gets 100% full, writes to it will fail with an *Out of space* error message. Administrators usually want to avoid volumes which are 100% full.
+* *Volume capacity usage*: This chart shows the percentage of used capacity in a volume versus its size. If a volume gets 100% full, writes to it will fail with an *Out of space* error message. Administrators usually want to avoid volumes which are 100% full.
 
 * *Volume inode usage*: Every file or directory is an inode. Every volume can hold a [maximum number of inodes](https://cloud.google.com/netapp/volumes/docs/quotas#maxfiles_limit). If your volume reaches 100% inode usage, users/application will not be able to create new files or directories in the volume.
 
-* *Volume throughput*: Shows the throughput (reads + writes combined) for every volume. Volumes have a throughput limit which depends on their size and service level (for service levels Standard, Premium and Extreme) or their storage pools size (for service level Flex). This graph will also show if a volume will hit its throughput ceiling for an extended time.
+* *Volume performance usage*: Percentage of current volume performance vs the volumes capability. Works for service levels Standard, Premium and Extreme. Flex volumes will show ratio of volume performance vs storage pool performance.
+
+* *Volume throughput*: Shows the throughput (reads + writes + metadata combined) for every volume. Volumes have a throughput limit which depends on their size and service level (for service levels Standard, Premium and Extreme) or their storage pools size (for service level Flex).
 
 * *Volume IOPS*: Shows the IO operations per second a volume is doing. NetApp Volumes exports data for three subtypes (Read, Write and Metadata) to Cloud Monitoring. This graph sums them up for a volume.
 
-* *Volume IO Mix*: This graph show the amount of read, write and metadata IOPS per location. It helps to get an understanding of the read/write/metadata mix for a location.
+* *Volume IO activity*: Table of latest top I/O activity volumes
 
 ## Installation
 
