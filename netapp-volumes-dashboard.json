@@ -2,13 +2,15 @@
   "displayName": "NetApp Volumes",
   "dashboardFilters": [
     {
-      "filterType": "RESOURCE_LABEL",
       "labelKey": "location",
+      "templateVariable": "",
+      "filterType": "RESOURCE_LABEL",
       "valueType": "STRING_ARRAY"
     },
     {
-      "filterType": "RESOURCE_LABEL",
       "labelKey": "name",
+      "templateVariable": "",
+      "filterType": "RESOURCE_LABEL",
       "valueType": "STRING_ARRAY"
     }
   ],
@@ -43,7 +45,7 @@
             "displayHorizontal": false
           }
         },
-        "computedId": "f9e610ea-b6e6-457e-9244-3bd151d9a1a0",
+        "computedId": "6561d5c3-0e11-4065-8313-0c756b8657cd",
         "title": "Volume capacity usage [%]",
         "id": ""
       },
@@ -52,7 +54,7 @@
           "dataSets": [
             {
               "timeSeriesQuery": {
-                "prometheusQuery": "netapp_googleapis_com:volume_inode_used > 0 / netapp_googleapis_com:volume_inode_limit * 100"
+                "prometheusQuery": "last_over_time((netapp_googleapis_com:volume_inode_used > 0)[1h:]) / netapp_googleapis_com:volume_inode_limit * 100"
               },
               "plotType": "LINE",
               "targetAxis": "Y1"
@@ -68,7 +70,7 @@
           }
         },
         "title": "Volume inode usage [%]",
-        "computedId": "5b67cc92-d188-4166-be87-7be8e5a821dc"
+        "computedId": "e671c6a9-e302-4703-ab14-1f74863e43e0"
       },
       {
         "xyChart": {
@@ -98,7 +100,7 @@
             "displayHorizontal": false
           }
         },
-        "computedId": "620ef088-f388-43a5-ade9-17d134fe2562",
+        "computedId": "c7a3908c-2eb4-4f91-a1b5-2a53c2b3d8fe",
         "title": "Volume performance usage [%]",
         "id": ""
       },
@@ -110,6 +112,7 @@
                 "timeSeriesFilter": {
                   "filter": "metric.type=\"netapp.googleapis.com/volume/throughput\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
+                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -118,6 +121,7 @@
                     ]
                   },
                   "secondaryAggregation": {
+                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_MEAN",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -125,25 +129,33 @@
                       "resource.label.\"name\""
                     ]
                   }
-                }
+                },
+                "unitOverride": "",
+                "outputFullDuration": false
               },
               "plotType": "LINE",
+              "legendTemplate": "",
+              "minAlignmentPeriod": "300s",
               "targetAxis": "Y1",
-              "minAlignmentPeriod": "300s"
+              "dimensions": [],
+              "measures": [],
+              "breakdowns": []
             }
           ],
-          "chartOptions": {
-            "mode": "COLOR",
-            "displayHorizontal": false
-          },
           "thresholds": [],
           "yAxis": {
+            "label": "",
             "scale": "LINEAR"
+          },
+          "chartOptions": {
+            "mode": "COLOR",
+            "showLegend": false,
+            "displayHorizontal": false
           }
         },
+        "computedId": "e62f7b40-a5a7-4af5-ba31-e55c4d5466a3",
         "title": "Volume throughput",
-        "id": "",
-        "computedId": "26505b3d-1c0e-410b-a1f2-dde98271098b"
+        "id": ""
       },
       {
         "xyChart": {
@@ -153,6 +165,7 @@
                 "timeSeriesFilter": {
                   "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
+                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -160,26 +173,78 @@
                       "resource.label.\"location\""
                     ]
                   }
-                }
+                },
+                "unitOverride": "",
+                "outputFullDuration": false
               },
               "plotType": "LINE",
+              "legendTemplate": "",
+              "minAlignmentPeriod": "300s",
               "targetAxis": "Y1",
-              "minAlignmentPeriod": "300s"
+              "dimensions": [],
+              "measures": [],
+              "breakdowns": []
             }
           ],
-          "chartOptions": {
-            "mode": "COLOR",
-            "displayHorizontal": false
-          },
+          "timeshiftDuration": "0s",
           "thresholds": [],
           "yAxis": {
+            "label": "",
             "scale": "LINEAR"
           },
-          "timeshiftDuration": "0s"
+          "chartOptions": {
+            "mode": "COLOR",
+            "showLegend": false,
+            "displayHorizontal": false
+          }
         },
+        "computedId": "46782ea7-9e9e-4887-89b3-a162ea9d2faa",
         "title": "Volume IOPS",
-        "id": "",
-        "computedId": "e268988b-faec-43b6-acd5-be861cdf75db"
+        "id": ""
+      },
+      {
+        "xyChart": {
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"netapp.googleapis.com/volume/average_latency\" resource.type=\"netapp.googleapis.com/Volume\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_MEAN",
+                    "crossSeriesReducer": "REDUCE_SUM",
+                    "groupByFields": [
+                      "resource.label.\"location\"",
+                      "resource.label.\"name\""
+                    ]
+                  }
+                },
+                "unitOverride": "",
+                "outputFullDuration": false
+              },
+              "plotType": "LINE",
+              "legendTemplate": "",
+              "minAlignmentPeriod": "300s",
+              "targetAxis": "Y1",
+              "dimensions": [],
+              "measures": [],
+              "breakdowns": []
+            }
+          ],
+          "thresholds": [],
+          "yAxis": {
+            "label": "",
+            "scale": "LINEAR"
+          },
+          "chartOptions": {
+            "mode": "COLOR",
+            "showLegend": false,
+            "displayHorizontal": false
+          }
+        },
+        "computedId": "76dce6d5-637f-4bc8-8c50-d78e7bdc95f9",
+        "title": "Volume latency",
+        "id": ""
       },
       {
         "timeSeriesTable": {
@@ -189,6 +254,7 @@
                 "timeSeriesFilter": {
                   "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
+                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -202,8 +268,10 @@
                     "direction": "TOP"
                   }
                 },
+                "unitOverride": "",
                 "outputFullDuration": false
               },
+              "tableTemplate": "",
               "minAlignmentPeriod": "300s"
             }
           ],
@@ -229,11 +297,17 @@
               "column": "name",
               "visible": true
             }
-          ]
+          ],
+          "opsAnalyticsSettings": {
+            "maxRows": "0",
+            "showFilterBar": false,
+            "pageSize": "0"
+          },
+          "displayColumnType": false
         },
+        "computedId": "bcc7a7bc-f46c-487f-afa0-08f29a208ad1",
         "title": "Volume IO activity",
-        "id": "",
-        "computedId": "eaa6c600-13d2-4a0a-b7ad-e38a0584f5d5"
+        "id": ""
       }
     ]
   }
