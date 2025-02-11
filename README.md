@@ -32,7 +32,7 @@ Follow Googles instructions on how to [install sample dashboads](https://cloud.g
 We plan to improve this dashboard over time by adding additonal useful graphs.
 You can utilize the [JSON Editor of Cloud Monitoring](https://cloud.google.com/monitoring/charts/manage-widgets#json) to replace the old dashboard definition with a new one from this repository. 
 
-Please note that this will overwrite any changes you did. If you are familiar with JSON and it's structure, you can manually copy/paste new parts you like to include into your existing JSON definition. Backup your existion JSON definition prior or import the update into a new dashboard to keeping your custom dashboard intact.
+Please note that this will overwrite any changes you did to the dashboard. If you are familiar with JSON and it's structure, you can manually copy/paste the new parts you like to include into your existing JSON definition. Backup your existion JSON definition prior or import the update into a new dashboard to keeping your custom dashboard intact.
 
 ## Improvements
 It is the intention to improve the dashboard by adding additonal useful charts and functionality. If you think you have a use case which is of benefit for other users of NetApp Volumes, please consider opening an issue for this repository and describe your ask and we will consider it.

@@ -2,15 +2,13 @@
   "displayName": "NetApp Volumes",
   "dashboardFilters": [
     {
-      "labelKey": "location",
-      "templateVariable": "",
       "filterType": "RESOURCE_LABEL",
+      "labelKey": "location",
       "valueType": "STRING_ARRAY"
     },
     {
-      "labelKey": "name",
-      "templateVariable": "",
       "filterType": "RESOURCE_LABEL",
+      "labelKey": "name",
       "valueType": "STRING_ARRAY"
     }
   ],
@@ -45,7 +43,7 @@
             "displayHorizontal": false
           }
         },
-        "computedId": "3e4832c4-183f-44ec-833c-ab5c24de9832",
+        "computedId": "f9e610ea-b6e6-457e-9244-3bd151d9a1a0",
         "title": "Volume capacity usage [%]",
         "id": ""
       },
@@ -54,32 +52,23 @@
           "dataSets": [
             {
               "timeSeriesQuery": {
-                "prometheusQuery": "max_over_time(netapp_googleapis_com:volume_inode_used[30m]) / max_over_time(netapp_googleapis_com:volume_inode_limit[30m]) * 100",
-                "unitOverride": "",
-                "outputFullDuration": false
+                "prometheusQuery": "netapp_googleapis_com:volume_inode_used > 0 / netapp_googleapis_com:volume_inode_limit * 100"
               },
               "plotType": "LINE",
-              "legendTemplate": "",
-              "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+              "targetAxis": "Y1"
             }
           ],
-          "thresholds": [],
-          "yAxis": {
-            "label": "",
-            "scale": "LINEAR"
-          },
           "chartOptions": {
             "mode": "COLOR",
-            "showLegend": false,
             "displayHorizontal": false
+          },
+          "thresholds": [],
+          "yAxis": {
+            "scale": "LINEAR"
           }
         },
-        "computedId": "cf2ded3a-8020-465d-b9aa-d8f4ae65b4f9",
         "title": "Volume inode usage [%]",
-        "id": ""
+        "computedId": "5b67cc92-d188-4166-be87-7be8e5a821dc"
       },
       {
         "xyChart": {
@@ -109,7 +98,7 @@
             "displayHorizontal": false
           }
         },
-        "computedId": "cadc824d-dc92-4fcb-af0e-e06f64951452",
+        "computedId": "620ef088-f388-43a5-ade9-17d134fe2562",
         "title": "Volume performance usage [%]",
         "id": ""
       },
@@ -121,7 +110,6 @@
                 "timeSeriesFilter": {
                   "filter": "metric.type=\"netapp.googleapis.com/volume/throughput\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
-                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -130,7 +118,6 @@
                     ]
                   },
                   "secondaryAggregation": {
-                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_MEAN",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -138,33 +125,25 @@
                       "resource.label.\"name\""
                     ]
                   }
-                },
-                "unitOverride": "",
-                "outputFullDuration": false
+                }
               },
               "plotType": "LINE",
-              "legendTemplate": "",
-              "minAlignmentPeriod": "300s",
               "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+              "minAlignmentPeriod": "300s"
             }
           ],
-          "thresholds": [],
-          "yAxis": {
-            "label": "",
-            "scale": "LINEAR"
-          },
           "chartOptions": {
             "mode": "COLOR",
-            "showLegend": false,
             "displayHorizontal": false
+          },
+          "thresholds": [],
+          "yAxis": {
+            "scale": "LINEAR"
           }
         },
-        "computedId": "4cc88209-7ef2-4ab0-afb9-f95878ca15b5",
         "title": "Volume throughput",
-        "id": ""
+        "id": "",
+        "computedId": "26505b3d-1c0e-410b-a1f2-dde98271098b"
       },
       {
         "xyChart": {
@@ -174,7 +153,6 @@
                 "timeSeriesFilter": {
                   "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
-                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -182,34 +160,26 @@
                       "resource.label.\"location\""
                     ]
                   }
-                },
-                "unitOverride": "",
-                "outputFullDuration": false
+                }
               },
               "plotType": "LINE",
-              "legendTemplate": "",
-              "minAlignmentPeriod": "300s",
               "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+              "minAlignmentPeriod": "300s"
             }
           ],
-          "timeshiftDuration": "0s",
-          "thresholds": [],
-          "yAxis": {
-            "label": "",
-            "scale": "LINEAR"
-          },
           "chartOptions": {
             "mode": "COLOR",
-            "showLegend": false,
             "displayHorizontal": false
-          }
+          },
+          "thresholds": [],
+          "yAxis": {
+            "scale": "LINEAR"
+          },
+          "timeshiftDuration": "0s"
         },
-        "computedId": "6c11bf67-6431-4abc-8adb-2d242cff098d",
         "title": "Volume IOPS",
-        "id": ""
+        "id": "",
+        "computedId": "e268988b-faec-43b6-acd5-be861cdf75db"
       },
       {
         "timeSeriesTable": {
@@ -219,7 +189,6 @@
                 "timeSeriesFilter": {
                   "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
-                    "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
@@ -233,10 +202,8 @@
                     "direction": "TOP"
                   }
                 },
-                "unitOverride": "",
                 "outputFullDuration": false
               },
-              "tableTemplate": "",
               "minAlignmentPeriod": "300s"
             }
           ],
@@ -262,17 +229,11 @@
               "column": "name",
               "visible": true
             }
-          ],
-          "opsAnalyticsSettings": {
-            "maxRows": "0",
-            "showFilterBar": false,
-            "pageSize": "0"
-          },
-          "displayColumnType": false
+          ]
         },
-        "computedId": "b4421450-8710-41d4-ab99-e3d0ea61f3dd",
         "title": "Volume IO activity",
-        "id": ""
+        "id": "",
+        "computedId": "eaa6c600-13d2-4a0a-b7ad-e38a0584f5d5"
       }
     ]
   }
