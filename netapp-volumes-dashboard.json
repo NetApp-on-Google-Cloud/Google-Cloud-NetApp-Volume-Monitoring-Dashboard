@@ -77,32 +77,23 @@
           "dataSets": [
             {
               "timeSeriesQuery": {
-                "prometheusQuery": "sum(rate(netapp_googleapis_com:volume_throughput[5m])) by (location, name) / (sum(netapp_googleapis_com:volume_throughput_limit) by (location, name) * 1024) * 100",
-                "unitOverride": "",
-                "outputFullDuration": false
+                "prometheusQuery": "sum(rate(netapp_googleapis_com:volume_throughput[5m])) by (location, name) / (sum(netapp_googleapis_com:volume_throughput_limit) by (location, name) * 1024) * 100"
               },
               "plotType": "LINE",
-              "legendTemplate": "",
-              "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+              "targetAxis": "Y1"
             }
           ],
-          "thresholds": [],
-          "yAxis": {
-            "label": "",
-            "scale": "LINEAR"
-          },
           "chartOptions": {
             "mode": "COLOR",
-            "showLegend": false,
             "displayHorizontal": false
+          },
+          "thresholds": [],
+          "yAxis": {
+            "scale": "LINEAR"
           }
         },
-        "computedId": "c7a3908c-2eb4-4f91-a1b5-2a53c2b3d8fe",
-        "title": "Volume performance usage [%]",
-        "id": ""
+        "title": "Volume throughput usage [%]",
+        "computedId": "c7a3908c-2eb4-4f91-a1b5-2a53c2b3d8fe"
       },
       {
         "xyChart": {
