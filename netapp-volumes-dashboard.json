@@ -1,284 +1,198 @@
 {
-  "displayName": "NetApp Volumes",
   "dashboardFilters": [
     {
-      "labelKey": "location",
-      "templateVariable": "",
       "filterType": "RESOURCE_LABEL",
+      "labelKey": "location",
       "valueType": "STRING_ARRAY"
     },
     {
-      "labelKey": "name",
-      "templateVariable": "",
       "filterType": "RESOURCE_LABEL",
+      "labelKey": "name",
       "valueType": "STRING_ARRAY"
     }
   ],
+  "displayName": "NetApp Volumes",
   "gridLayout": {
     "columns": "3",
     "widgets": [
       {
+        "title": "Volume capacity usage [%]",
         "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
           "dataSets": [
             {
-              "timeSeriesQuery": {
-                "prometheusQuery": "   netapp_googleapis_com:volume_bytes_used / netapp_googleapis_com:volume_allocated_bytes * 100\n ",
-                "unitOverride": "",
-                "outputFullDuration": false
-              },
               "plotType": "LINE",
-              "legendTemplate": "",
               "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+              "timeSeriesQuery": {
+                "prometheusQuery": "   netapp_googleapis_com:volume_bytes_used / netapp_googleapis_com:volume_allocated_bytes * 100\n "
+              }
             }
           ],
-          "thresholds": [],
           "yAxis": {
-            "label": "",
             "scale": "LINEAR"
-          },
-          "chartOptions": {
-            "mode": "COLOR",
-            "showLegend": false,
-            "displayHorizontal": false
           }
-        },
-        "computedId": "6561d5c3-0e11-4065-8313-0c756b8657cd",
-        "title": "Volume capacity usage [%]",
-        "id": ""
+        }
       },
       {
+        "title": "Volume inode usage [%]",
         "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
           "dataSets": [
             {
+              "plotType": "LINE",
+              "targetAxis": "Y1",
               "timeSeriesQuery": {
                 "prometheusQuery": "last_over_time((netapp_googleapis_com:volume_inode_used > 0)[1h:]) / netapp_googleapis_com:volume_inode_limit * 100"
-              },
-              "plotType": "LINE",
-              "targetAxis": "Y1"
+              }
             }
           ],
-          "chartOptions": {
-            "mode": "COLOR",
-            "displayHorizontal": false
-          },
-          "thresholds": [],
           "yAxis": {
             "scale": "LINEAR"
           }
-        },
-        "title": "Volume inode usage [%]",
-        "computedId": "e671c6a9-e302-4703-ab14-1f74863e43e0"
+        }
       },
       {
+        "title": "Volume throughput usage [%]",
         "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
           "dataSets": [
             {
+              "plotType": "LINE",
+              "targetAxis": "Y1",
               "timeSeriesQuery": {
                 "prometheusQuery": "sum(rate(netapp_googleapis_com:volume_throughput[5m])) by (location, name) / (sum(netapp_googleapis_com:volume_throughput_limit) by (location, name) * 1024) * 100"
-              },
-              "plotType": "LINE",
-              "targetAxis": "Y1"
+              }
             }
           ],
-          "chartOptions": {
-            "mode": "COLOR",
-            "displayHorizontal": false
-          },
-          "thresholds": [],
           "yAxis": {
             "scale": "LINEAR"
           }
-        },
-        "title": "Volume throughput usage [%]",
-        "computedId": "c7a3908c-2eb4-4f91-a1b5-2a53c2b3d8fe"
+        }
       },
       {
+        "title": "Volume throughput",
         "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
           "dataSets": [
             {
+              "minAlignmentPeriod": "300s",
+              "plotType": "LINE",
+              "targetAxis": "Y1",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"netapp.googleapis.com/volume/throughput\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
                     "alignmentPeriod": "300s",
-                    "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
                       "resource.label.\"location\"",
                       "resource.label.\"name\""
-                    ]
+                    ],
+                    "perSeriesAligner": "ALIGN_RATE"
                   },
+                  "filter": "metric.type=\"netapp.googleapis.com/volume/throughput\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "secondaryAggregation": {
                     "alignmentPeriod": "300s",
-                    "perSeriesAligner": "ALIGN_MEAN",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
                       "resource.label.\"location\"",
                       "resource.label.\"name\""
-                    ]
+                    ],
+                    "perSeriesAligner": "ALIGN_MEAN"
                   }
-                },
-                "unitOverride": "",
-                "outputFullDuration": false
-              },
-              "plotType": "LINE",
-              "legendTemplate": "",
-              "minAlignmentPeriod": "300s",
-              "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+                }
+              }
             }
           ],
-          "thresholds": [],
           "yAxis": {
-            "label": "",
             "scale": "LINEAR"
-          },
-          "chartOptions": {
-            "mode": "COLOR",
-            "showLegend": false,
-            "displayHorizontal": false
           }
-        },
-        "computedId": "e62f7b40-a5a7-4af5-ba31-e55c4d5466a3",
-        "title": "Volume throughput",
-        "id": ""
+        }
       },
       {
+        "title": "Volume IOPS",
         "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
           "dataSets": [
             {
+              "minAlignmentPeriod": "300s",
+              "plotType": "LINE",
+              "targetAxis": "Y1",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
                     "alignmentPeriod": "300s",
-                    "perSeriesAligner": "ALIGN_RATE",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
                       "resource.label.\"name\"",
                       "resource.label.\"location\""
-                    ]
-                  }
-                },
-                "unitOverride": "",
-                "outputFullDuration": false
-              },
-              "plotType": "LINE",
-              "legendTemplate": "",
-              "minAlignmentPeriod": "300s",
-              "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+                    ],
+                    "perSeriesAligner": "ALIGN_RATE"
+                  },
+                  "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\""
+                }
+              }
             }
           ],
           "timeshiftDuration": "0s",
-          "thresholds": [],
           "yAxis": {
-            "label": "",
             "scale": "LINEAR"
-          },
-          "chartOptions": {
-            "mode": "COLOR",
-            "showLegend": false,
-            "displayHorizontal": false
           }
-        },
-        "computedId": "46782ea7-9e9e-4887-89b3-a162ea9d2faa",
-        "title": "Volume IOPS",
-        "id": ""
+        }
       },
       {
+        "title": "Volume latency",
         "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
           "dataSets": [
             {
+              "minAlignmentPeriod": "300s",
+              "plotType": "LINE",
+              "targetAxis": "Y1",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"netapp.googleapis.com/volume/average_latency\" resource.type=\"netapp.googleapis.com/Volume\"",
                   "aggregation": {
                     "alignmentPeriod": "300s",
-                    "perSeriesAligner": "ALIGN_MEAN",
                     "crossSeriesReducer": "REDUCE_SUM",
                     "groupByFields": [
                       "resource.label.\"location\"",
                       "resource.label.\"name\""
-                    ]
-                  }
-                },
-                "unitOverride": "",
-                "outputFullDuration": false
-              },
-              "plotType": "LINE",
-              "legendTemplate": "",
-              "minAlignmentPeriod": "300s",
-              "targetAxis": "Y1",
-              "dimensions": [],
-              "measures": [],
-              "breakdowns": []
+                    ],
+                    "perSeriesAligner": "ALIGN_MEAN"
+                  },
+                  "filter": "metric.type=\"netapp.googleapis.com/volume/average_latency\" resource.type=\"netapp.googleapis.com/Volume\""
+                }
+              }
             }
           ],
-          "thresholds": [],
           "yAxis": {
-            "label": "",
             "scale": "LINEAR"
-          },
-          "chartOptions": {
-            "mode": "COLOR",
-            "showLegend": false,
-            "displayHorizontal": false
           }
-        },
-        "computedId": "76dce6d5-637f-4bc8-8c50-d78e7bdc95f9",
-        "title": "Volume latency",
-        "id": ""
+        }
       },
       {
         "timeSeriesTable": {
-          "dataSets": [
-            {
-              "timeSeriesQuery": {
-                "timeSeriesFilter": {
-                  "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\"",
-                  "aggregation": {
-                    "alignmentPeriod": "300s",
-                    "perSeriesAligner": "ALIGN_RATE",
-                    "crossSeriesReducer": "REDUCE_SUM",
-                    "groupByFields": [
-                      "metric.label.\"type\"",
-                      "resource.label.\"name\""
-                    ]
-                  },
-                  "pickTimeSeriesFilter": {
-                    "rankingMethod": "METHOD_MEAN",
-                    "numTimeSeries": 30,
-                    "direction": "TOP"
-                  }
-                },
-                "unitOverride": "",
-                "outputFullDuration": false
-              },
-              "tableTemplate": "",
-              "minAlignmentPeriod": "300s"
-            }
-          ],
-          "metricVisualization": "BAR",
           "columnSettings": [
             {
               "column": "type",
               "visible": true
             },
             {
-              "column": "location",
-              "visible": false
+              "column": "location"
             },
             {
-              "column": "project_id",
-              "visible": false
+              "column": "project_id"
             },
             {
               "column": "value",
@@ -289,16 +203,33 @@
               "visible": true
             }
           ],
-          "opsAnalyticsSettings": {
-            "maxRows": "0",
-            "showFilterBar": false,
-            "pageSize": "0"
-          },
-          "displayColumnType": false
+          "dataSets": [
+            {
+              "minAlignmentPeriod": "300s",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "crossSeriesReducer": "REDUCE_SUM",
+                    "groupByFields": [
+                      "metric.label.\"type\"",
+                      "resource.label.\"name\""
+                    ],
+                    "perSeriesAligner": "ALIGN_RATE"
+                  },
+                  "filter": "metric.type=\"netapp.googleapis.com/volume/operation_count\" resource.type=\"netapp.googleapis.com/Volume\"",
+                  "pickTimeSeriesFilter": {
+                    "direction": "TOP",
+                    "numTimeSeries": 30,
+                    "rankingMethod": "METHOD_MEAN"
+                  }
+                }
+              }
+            }
+          ],
+          "metricVisualization": "BAR"
         },
-        "computedId": "bcc7a7bc-f46c-487f-afa0-08f29a208ad1",
-        "title": "Volume IO activity",
-        "id": ""
+        "title": "Volume IO activity"
       }
     ]
   }
